@@ -1,0 +1,21 @@
+import Link from "next/link";
+
+export default function NotFound() {
+  return (
+    <div className="min-h-screen flex flex-col items-center justify-center bg-base-100 text-center px-4">
+      <h1 className="text-9xl font-extrabold text-primary">404</h1>
+
+      <h2 className="text-3xl font-bold mt-4 text-base-content">
+        Page Not Found
+      </h2>
+
+      <p className="mt-3 text-base-content/70 max-w-md">
+        Oops! The page you are looking for does not exist or has been moved.
+      </p>
+
+      <Link href="/" className="btn btn-primary mt-8 px-8">
+        ⬅ Back to Home
+      </Link>
+    </div>
+  );
+}

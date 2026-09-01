@@ -74,10 +74,10 @@ const Navbar = () => {
                   height={40}
                   width={40}
                   loading="eager"
-                  src="/logo.webp"
+                  src="https://static6.depositphotos.com/1148595/647/v/450/depositphotos_6474982-stock-illustration-stylized-ebook-icon.jpg"
                   alt="Fable logo"
                 />
-                <p className="font-bold">Fable</p>
+                <p className="font-bold">Ebook Sharing Platform</p>
               </div>
             </Link>
           </div>

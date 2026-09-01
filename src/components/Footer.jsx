@@ -33,7 +33,7 @@ export default function Footer() {
           <div>
             <Link href="/" className="inline-block">
               <Image
-                src="/logo-xl.png"
+                src="https://static6.depositphotos.com/1148595/647/v/450/depositphotos_6474982-stock-illustration-stylized-ebook-icon.jpg"
                 alt="Fable logo"
                 width={180}
                 height={50}
@@ -42,7 +42,7 @@ export default function Footer() {
             </Link>
 
             <p className="mt-4 text-sm text-muted-foreground">
-              Fable connects readers and collectors with talented writers.
+              Fable – Ebook Sharing Platform that connects readers and collectors with talented writers.
               Discover, read, and collect original ebooks — all in one
               place.
             </p>
@@ -187,14 +187,14 @@ export default function Footer() {
 
               <div className="flex gap-3">
                 <Mail className="h-4 w-4 shrink-0" />
-                <span>support@fable.com</span>
+                <span>support@ebook.com</span>
               </div>
             </div>
           </div>
         </div>
 
         <div className="flex flex-col items-center justify-between gap-3 border-t py-6 text-center text-sm text-muted-foreground md:flex-row">
-          <p>© {new Date().getFullYear()} Fable. All rights reserved.</p>
+          <p>© {new Date().getFullYear()} Fable-Ebook Sharing Platform. All rights reserved.</p>
 
           <div className="flex items-center gap-4">
             <Link href="/privacy-policy" className="hover:text-foreground">
