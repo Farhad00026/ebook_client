@@ -73,7 +73,7 @@ const Navbar = () => {
                 <Image
                   height={40}
                   width={40}
-                  loading="eager"
+                  className="h-10 w-auto"
                   src="https://static6.depositphotos.com/1148595/647/v/450/depositphotos_6474982-stock-illustration-stylized-ebook-icon.jpg"
                   alt="Fable logo"
                 />

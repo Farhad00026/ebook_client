@@ -60,7 +60,7 @@ export default function SignUpPage() {
                 <FieldError />
               </TextField>
 
-              {/* <Select isRequired name="role" placeholder="Select one">
+              <Select isRequired name="role" placeholder="Select one">
                 <Label>Signup As</Label>
                 <Select.Trigger>
                   <Select.Value />
@@ -78,7 +78,7 @@ export default function SignUpPage() {
                     </ListBox.Item>
                   </ListBox>
                 </Select.Popover>
-              </Select> */}
+              </Select>
             </Fieldset.Group>
 
             <Button type="submit" className={"w-full"}>
