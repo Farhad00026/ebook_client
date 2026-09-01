@@ -1,15 +1,30 @@
+"use client";
+
+import { useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
-import {
-  Mail,
-  Phone,
-  MapPin,
-} from "lucide-react";
+import { Mail, Phone, MapPin, Send, CheckCircle2 } from "lucide-react";
 import { FaFacebook } from "react-icons/fa";
 import { BsInstagram, BsTwitter } from "react-icons/bs";
 import { LiaLinkedin } from "react-icons/lia";
 
 export default function Footer() {
+  const [email, setEmail] = useState("");
+  const [subscribed, setSubscribed] = useState(false);
+
+  const handleNewsletterSubmit = (e) => {
+    e.preventDefault();
+    if (!email) return;
+
+    // Frontend-only placeholder — wire this to your Express API
+    // e.g. POST /api/newsletter/subscribe { email }
+    console.log("Newsletter signup:", email);
+
+    setSubscribed(true);
+    setEmail("");
+    setTimeout(() => setSubscribed(false), 4000);
+  };
+
   return (
     <footer className="mt-16 border-t bg-background">
       <div className="container mx-auto px-4">
@@ -19,7 +34,7 @@ export default function Footer() {
             <Link href="/" className="inline-block">
               <Image
                 src="/logo-xl.png"
-                alt="Logo"
+                alt="Fable logo"
                 width={180}
                 height={50}
                 className="h-12 w-auto"
@@ -27,31 +42,36 @@ export default function Footer() {
             </Link>
 
             <p className="mt-4 text-sm text-muted-foreground">
-              Discover quality products at great prices. Fast delivery,
-              secure payments, and exceptional customer service.
+              Fable connects readers and collectors with talented writers.
+              Discover, read, and collect original ebooks — all in one
+              place.
             </p>
 
             <div className="mt-5 flex items-center gap-3">
               <Link
                 href="#"
+                aria-label="Facebook"
                 className="rounded-full border p-2 transition hover:bg-muted"
               >
                 <FaFacebook className="h-4 w-4" />
               </Link>
               <Link
                 href="#"
+                aria-label="Instagram"
                 className="rounded-full border p-2 transition hover:bg-muted"
               >
                 <BsInstagram className="h-4 w-4" />
               </Link>
               <Link
                 href="#"
+                aria-label="Twitter"
                 className="rounded-full border p-2 transition hover:bg-muted"
               >
                 <BsTwitter className="h-4 w-4" />
               </Link>
               <Link
                 href="#"
+                aria-label="LinkedIn"
                 className="rounded-full border p-2 transition hover:bg-muted"
               >
                 <LiaLinkedin className="h-4 w-4" />
@@ -59,48 +79,43 @@ export default function Footer() {
             </div>
           </div>
 
-          {/* Shop */}
+          {/* Quick Links */}
           <div>
             <h3 className="mb-4 text-sm font-semibold uppercase tracking-wider">
-              Shop
+              Quick Links
             </h3>
 
             <ul className="space-y-3 text-sm text-muted-foreground">
               <li>
-                <Link href="/products" className="hover:text-foreground">
-                  All Products
+                <Link href="/about" className="hover:text-foreground">
+                  About
                 </Link>
               </li>
               <li>
-                <Link href="/categories" className="hover:text-foreground">
-                  Categories
+                <Link href="/ebooks" className="hover:text-foreground">
+                  Browse Ebooks
                 </Link>
               </li>
               <li>
-                <Link href="/new-arrivals" className="hover:text-foreground">
-                  New Arrivals
+                <Link href="/writer/verify" className="hover:text-foreground">
+                  Become a Writer
                 </Link>
               </li>
               <li>
-                <Link href="/best-selling" className="hover:text-foreground">
-                  Best Selling
+                <Link href="/contact" className="hover:text-foreground">
+                  Contact
                 </Link>
               </li>
             </ul>
           </div>
 
-          {/* Support */}
+          {/* Support / Legal */}
           <div>
             <h3 className="mb-4 text-sm font-semibold uppercase tracking-wider">
               Support
             </h3>
 
             <ul className="space-y-3 text-sm text-muted-foreground">
-              <li>
-                <Link href="/contact" className="hover:text-foreground">
-                  Contact Us
-                </Link>
-              </li>
               <li>
                 <Link href="/faq" className="hover:text-foreground">
                   FAQ
@@ -116,16 +131,50 @@ export default function Footer() {
                   Terms & Conditions
                 </Link>
               </li>
+              <li>
+                <Link href="/writer/guidelines" className="hover:text-foreground">
+                  Writer Guidelines
+                </Link>
+              </li>
             </ul>
           </div>
 
-          {/* Contact */}
+          {/* Newsletter + Contact */}
           <div>
             <h3 className="mb-4 text-sm font-semibold uppercase tracking-wider">
-              Contact
+              Stay Updated
             </h3>
 
-            <div className="space-y-4 text-sm text-muted-foreground">
+            <p className="mb-3 text-sm text-muted-foreground">
+              Get new releases and writer spotlights in your inbox.
+            </p>
+
+            <form onSubmit={handleNewsletterSubmit} className="flex gap-2">
+              <input
+                type="email"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+                placeholder="Your email"
+                required
+                className="w-full min-w-0 rounded-md border bg-background px-3 py-2 text-sm outline-none focus:ring-2 focus:ring-accent"
+              />
+              <button
+                type="submit"
+                aria-label="Subscribe"
+                className="flex shrink-0 items-center justify-center rounded-md bg-accent px-3 py-2 text-white transition hover:opacity-90"
+              >
+                <Send className="h-4 w-4" />
+              </button>
+            </form>
+
+            {subscribed && (
+              <p className="mt-2 flex items-center gap-1 text-xs text-green-600">
+                <CheckCircle2 className="h-3.5 w-3.5" />
+                Subscribed! Check your inbox.
+              </p>
+            )}
+
+            <div className="mt-5 space-y-3 text-sm text-muted-foreground">
               <div className="flex gap-3">
                 <MapPin className="mt-0.5 h-4 w-4 shrink-0" />
                 <span>Dhaka, Bangladesh</span>
@@ -138,16 +187,14 @@ export default function Footer() {
 
               <div className="flex gap-3">
                 <Mail className="h-4 w-4 shrink-0" />
-                <span>support@example.com</span>
+                <span>support@fable.com</span>
               </div>
             </div>
           </div>
         </div>
 
         <div className="flex flex-col items-center justify-between gap-3 border-t py-6 text-center text-sm text-muted-foreground md:flex-row">
-          <p>
-            © {new Date().getFullYear()} Your Store. All rights reserved.
-          </p>
+          <p>© {new Date().getFullYear()} Fable. All rights reserved.</p>
 
           <div className="flex items-center gap-4">
             <Link href="/privacy-policy" className="hover:text-foreground">

@@ -5,22 +5,49 @@
 import React, { useCallback, useEffect, useState, useRef } from "react";
 import useEmblaCarousel from "embla-carousel-react";
 import Autoplay from "embla-carousel-autoplay";
-import { ChevronLeft, ChevronRight } from "lucide-react";
+import Link from "next/link";
+import { ChevronLeft, ChevronRight, BookOpen, PenLine, Library } from "lucide-react";
 
-const banners = [
-  "https://rokbucket.rokomari.io/banner/DESKTOPceb599bd-9932-4da0-ab50-b266d1040886.webp",
-  "https://rokbucket.rokomari.io/banner/DESKTOPf960b78c-d644-48df-bd74-59e6a9ee26ab.webp",
-  "https://rokbucket.rokomari.io/banner/DESKTOPaf98bf29-bebb-4e15-8f43-9e8cc1ae9709.webp",
-  "https://rokbucket.rokomari.io/banner/DESKTOP9ee36a83-2e63-4e52-ae52-d32c9fecc82a.webp",
-  "https://rokbucket.rokomari.io/banner/DESKTOP71460507-15a8-43b0-b114-6f81db1c6dca.webp",
-  "https://rokbucket.rokomari.io/banner/DESKTOP8247e6d2-7630-4c09-9dd6-ce4efe30c187.webp",
-  "https://rokbucket.rokomari.io/banner/DESKTOP8ce432e2-1f36-4d7e-b94c-90bb05c499d6.webp",
+const slides = [
+  {
+    id: "discover",
+    eyebrow: "For Readers",
+    title: "Discover Your Next Great Read",
+    subtitle:
+      "Browse thousands of original ebooks from independent writers across every genre.",
+    ctaLabel: "Browse Ebooks",
+    ctaHref: "/ebooks",
+    gradient: "from-indigo-600 via-violet-600 to-purple-700",
+    Icon: BookOpen,
+  },
+  {
+    id: "publish",
+    eyebrow: "For Writers",
+    title: "Publish Your Story, Reach Readers",
+    subtitle:
+      "Verify your writer account and start uploading your original work to a growing community of readers.",
+    ctaLabel: "Become a Writer",
+    ctaHref: "/writer/verify",
+    gradient: "from-emerald-600 via-teal-600 to-cyan-700",
+    Icon: PenLine,
+  },
+  {
+    id: "library",
+    eyebrow: "Your Collection",
+    title: "Your Digital Library, Anywhere",
+    subtitle:
+      "Collect, organize, and read your favorite ebooks anytime, on any device.",
+    ctaLabel: "View My Library",
+    ctaHref: "/library",
+    gradient: "from-orange-500 via-rose-500 to-pink-600",
+    Icon: Library,
+  },
 ];
 
 export default function BannerSlider() {
   const autoplay = useRef(
     Autoplay({
-      delay: 4000,
+      delay: 4500,
       stopOnInteraction: false,
       stopOnMouseEnter: true,
     }),
@@ -51,39 +78,75 @@ export default function BannerSlider() {
   return (
     <div className="relative overflow-hidden rounded-3xl mt-3" ref={emblaRef}>
       <div className="flex">
-        {banners.map((banner, index) => (
-          <div key={index} className="relative min-w-0 flex-[0_0_100%]">
-            <img
-              src={banner}
-              alt={`Banner ${index + 1}`}
-              className="w-full object-cover"
-              loading={index === 0 ? "eager" : "lazy"}
-            />
-          </div>
-        ))}
+        {slides.map((slide) => {
+          const { id, eyebrow, title, subtitle, ctaLabel, ctaHref, gradient, Icon } =
+            slide;
+
+          return (
+            <div key={id} className="relative min-w-0 flex-[0_0_100%]">
+              <div
+                className={`relative flex min-h-[320px] w-full items-center overflow-hidden bg-gradient-to-br ${gradient} px-8 py-14 sm:min-h-[420px] sm:px-16`}
+              >
+                {/* Decorative floating shapes */}
+                <div className="pointer-events-none absolute -right-10 -top-10 h-64 w-64 rounded-full bg-white/10 blur-2xl" />
+                <div className="pointer-events-none absolute bottom-0 right-24 h-40 w-40 rounded-full bg-white/10 blur-xl" />
+                <div className="pointer-events-none absolute inset-0 opacity-10 [background-image:radial-gradient(circle,white_1px,transparent_1px)] [background-size:24px_24px]" />
+
+                {/* Large decorative icon */}
+                <Icon
+                  className="pointer-events-none absolute -right-6 top-1/2 h-56 w-56 -translate-y-1/2 text-white/10 sm:h-72 sm:w-72"
+                  strokeWidth={1}
+                />
+
+                {/* Text content */}
+                <div className="relative z-10 max-w-xl">
+                  <span className="inline-block rounded-full bg-white/15 px-4 py-1 text-sm font-medium text-white backdrop-blur-sm">
+                    {eyebrow}
+                  </span>
+                  <h1 className="mt-4 text-3xl font-bold leading-tight text-white sm:text-5xl">
+                    {title}
+                  </h1>
+                  <p className="mt-4 text-base text-white/85 sm:text-lg">
+                    {subtitle}
+                  </p>
+                  <Link
+                    href={ctaHref}
+                    className="mt-6 inline-flex items-center gap-2 rounded-full bg-white px-6 py-3 font-semibold text-gray-900 shadow-lg transition-transform hover:scale-105"
+                  >
+                    {ctaLabel}
+                    <ChevronRight className="h-4 w-4" />
+                  </Link>
+                </div>
+              </div>
+            </div>
+          );
+        })}
       </div>
 
       {/* Navigation */}
       <button
         onClick={() => emblaApi?.scrollPrev()}
-        className="absolute left-4 top-1/2 -translate-y-1/2 rounded-full bg-white/90 p-3 shadow-lg"
+        aria-label="Previous slide"
+        className="absolute left-4 top-1/2 -translate-y-1/2 rounded-full bg-white/90 p-3 shadow-lg transition hover:bg-white"
       >
-        <ChevronLeft/>
+        <ChevronLeft />
       </button>
 
       <button
         onClick={() => emblaApi?.scrollNext()}
-        className="absolute right-4 top-1/2 -translate-y-1/2 rounded-full bg-white/90 p-3 shadow-lg"
+        aria-label="Next slide"
+        className="absolute right-4 top-1/2 -translate-y-1/2 rounded-full bg-white/90 p-3 shadow-lg transition hover:bg-white"
       >
-        <ChevronRight/>
+        <ChevronRight />
       </button>
 
       {/* Dots */}
       <div className="absolute bottom-4 left-1/2 flex -translate-x-1/2 gap-2">
-        {banners.map((_, index) => (
+        {slides.map((slide, index) => (
           <button
-            key={index}
+            key={slide.id}
             onClick={() => emblaApi?.scrollTo(index)}
+            aria-label={`Go to slide ${index + 1}`}
             className={`h-2.5 rounded-full transition-all ${
               selectedIndex === index ? "w-8 bg-white" : "w-2.5 bg-white/50"
             }`}
