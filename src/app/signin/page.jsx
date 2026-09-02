@@ -9,11 +9,14 @@ import {
   Form,
   Input,
   Label,
+  Separator,
   Surface,
   TextField,
 } from "@heroui/react";
+import Link from "next/link";
 import { useRouter } from "next/navigation";
 import React, { useState } from "react";
+import { BsGoogle } from "react-icons/bs";
 
 export default function SignInPage() {
   const router = useRouter();
@@ -56,6 +59,11 @@ export default function SignInPage() {
     router.push("/");
     router.refresh();
   };
+   const handleGooglesignin = async () => {
+        await authClient.signIn.social({
+            provider: "google",
+        });
+    };
 
   return (
     <div className="mx-auto mt-5 flex max-w-2xl items-center justify-center rounded-3xl border bg-surface p-6">
@@ -106,6 +114,19 @@ export default function SignInPage() {
               {loading ? "Signing in..." : "Sign In"}
             </Button>
           </Fieldset>
+           <div className="flex items-center gap-4 my-6">
+                    <Separator className="flex-1" />
+                    <span className="text text-black whitespace-nowrap">
+                        <Link href={'/signup'}>Do not have an account? Register</Link>
+                    </span>
+                    <Separator className="flex-1" />
+                </div>
+                <div className="flex gap-2">
+                    <Button className="w-full text-center" onClick={handleGooglesignin}>
+                        <BsGoogle />
+                        GooGle SignIn
+                    </Button>
+                </div>
         </Form>
       </Surface>
     </div>
