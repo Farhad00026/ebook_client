@@ -73,7 +73,7 @@ export default function SignInPage() {
             <Fieldset.Legend>Sign In</Fieldset.Legend>
 
             <Description>
-              Welcome back to Fable
+              Welcome back to Ebook Sharing Platform
             </Description>
 
             <Fieldset.Group>
