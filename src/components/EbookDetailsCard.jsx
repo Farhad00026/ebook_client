@@ -181,6 +181,5 @@ return ( <main className="min-h-screen bg-gradient-to-br from-violet-50 via-whit
   </div>
 </main>
 
-
 );
 }
