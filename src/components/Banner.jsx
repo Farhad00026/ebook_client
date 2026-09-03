@@ -27,7 +27,7 @@ const slides = [
     subtitle:
       "Verify your writer account and start uploading your original work to a growing community of readers.",
     ctaLabel: "Become a Writer",
-    ctaHref: "/writer/verify",
+    ctaHref: "/ebooks",
     gradient: "from-emerald-600 via-teal-600 to-cyan-700",
     Icon: PenLine,
   },
@@ -38,7 +38,7 @@ const slides = [
     subtitle:
       "Collect, organize, and read your favorite ebooks anytime, on any device.",
     ctaLabel: "View My Library",
-    ctaHref: "/library",
+    ctaHref: "/ebooks",
     gradient: "from-orange-500 via-rose-500 to-pink-600",
     Icon: Library,
   },

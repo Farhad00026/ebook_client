@@ -16,7 +16,6 @@ const headline = ["Where stories find", "their readers."];
 export default function HeroSection() {
   const shouldReduceMotion = useReducedMotion();
 
-  // Two variant sets: full motion vs. reduced (opacity-only, no movement/rotation)
   const headlineVariants = {
     hidden: { opacity: 0, y: shouldReduceMotion ? 0 : 24 },
     visible: (i) => ({
@@ -31,8 +30,9 @@ export default function HeroSection() {
   };
 
   const shelfContainerVariants = {
-    hidden: {},
+    hidden: { opacity: 0 },
     visible: {
+      opacity: 1,
       transition: {
         staggerChildren: shouldReduceMotion ? 0 : 0.09,
         delayChildren: shouldReduceMotion ? 0 : 0.2,
@@ -44,31 +44,31 @@ export default function HeroSection() {
     hidden: {
       opacity: 0,
       y: shouldReduceMotion ? 0 : 32,
-      rotate: shouldReduceMotion ? 0 : -6,
     },
     visible: {
       opacity: 1,
       y: 0,
-      rotate: 0,
-      transition: { duration: shouldReduceMotion ? 0.3 : 0.55, ease: [0.22, 1, 0.36, 1] },
+      transition: {
+        duration: shouldReduceMotion ? 0.3 : 0.55,
+        ease: [0.22, 1, 0.36, 1],
+      },
     },
   };
 
   const coverHover = shouldReduceMotion
     ? {}
     : {
-        scale: 1.08,
-        rotate: 0,
-        y: -10,
+        scale: 1.05,
+        y: -8,
         transition: { duration: 0.25, ease: "easeOut" },
       };
 
   return (
-    <section className="relative overflow-hidden bg-[#15130F] px-6 py-24 sm:py-32 rounded-2xl">
-      <div className="mx-auto grid max-w-6xl grid-cols-1 items-center gap-16 lg:grid-cols-[1.1fr_1fr]">
-        {/* Left: headline + copy + CTA */}
-        <div>
-          <h1 className="font-serif text-[2.75rem] leading-[1.08] tracking-tight text-[#F3EAD8] sm:text-6xl">
+    <section className="relative overflow-hidden bg-[#15130F] px-4 py-12 sm:px-8 sm:py-20 lg:py-28 rounded-2xl">
+      <div className="mx-auto grid max-w-6xl grid-cols-1 items-center gap-12 lg:grid-cols-[1.1fr_1fr] lg:gap-16">
+        {/* Left Column */}
+        <div className="text-center lg:text-left">
+          <h1 className="font-serif text-3xl sm:text-5xl lg:text-6xl leading-[1.1] tracking-tight text-[#F3EAD8]">
             {headline.map((line, i) => (
               <motion.span
                 key={line}
@@ -91,11 +91,11 @@ export default function HeroSection() {
               delay: shouldReduceMotion ? 0 : 0.45,
               ease: [0.22, 1, 0.36, 1],
             }}
-            className="mt-6 max-w-[46ch] text-lg leading-relaxed text-[#F3EAD8]/70"
+            className="mx-auto mt-4 max-w-prose text-base text-[#F3EAD8]/70 sm:mt-6 sm:text-lg lg:mx-0"
           >
             Fable connects readers and collectors with independent writers.
-            Browse original ebooks, build your library, and support the
-            people who wrote them — directly.
+            Browse original ebooks, build your library, and support the people
+            who wrote them — directly.
           </motion.p>
 
           <motion.div
@@ -106,11 +106,11 @@ export default function HeroSection() {
               delay: shouldReduceMotion ? 0 : 0.6,
               ease: [0.22, 1, 0.36, 1],
             }}
-            className="mt-10 flex flex-wrap items-center gap-4"
+            className="mt-8 flex flex-col items-center justify-center gap-3 sm:flex-row sm:gap-4 lg:justify-start"
           >
             <Link
               href="#"
-              className="group inline-flex items-center gap-2 rounded-full bg-[#BD9455] px-6 py-3 text-sm font-medium text-[#15130F] transition-colors hover:bg-[#D4AC6E]"
+              className="group inline-flex w-full items-center justify-center gap-2 rounded-full bg-[#BD9455] px-6 py-3 text-sm font-medium text-[#15130F] transition-colors hover:bg-[#D4AC6E] sm:w-auto"
             >
               Start reading
               <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-0.5" />
@@ -118,20 +118,19 @@ export default function HeroSection() {
 
             <Link
               href="#"
-              className="inline-flex items-center gap-2 rounded-full border border-[#F3EAD8]/25 px-6 py-3 text-sm font-medium text-[#F3EAD8] transition-colors hover:border-[#F3EAD8]/50"
+              className="inline-flex w-full items-center justify-center gap-2 rounded-full border border-[#F3EAD8]/25 px-6 py-3 text-sm font-medium text-[#F3EAD8] transition-colors hover:border-[#F3EAD8]/50 sm:w-auto"
             >
               Publish your writing
             </Link>
           </motion.div>
         </div>
 
-        {/* Right: staggered book shelf, hover scale */}
+        {/* Right Column: Book Shelf */}
         <motion.div
           initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true, amount: 0.4 }}
+          animate="visible"
           variants={shelfContainerVariants}
-          className="relative flex items-end justify-center gap-3 sm:gap-4"
+          className="flex w-full items-end justify-center gap-2 overflow-x-auto py-4 sm:gap-3 lg:gap-4 lg:overflow-visible"
         >
           {shelf.map((book, i) => (
             <motion.div
@@ -140,14 +139,18 @@ export default function HeroSection() {
               whileHover={coverHover}
               style={{
                 backgroundColor: book.color,
-                rotate: shouldReduceMotion ? "0deg" : i % 2 === 0 ? "-3deg" : "3deg",
+                rotate: shouldReduceMotion
+                  ? "0deg"
+                  : i % 2 === 0
+                  ? "-3deg"
+                  : "3deg",
               }}
-              className="flex h-52 w-32 flex-shrink-0 flex-col justify-between rounded-sm p-3 shadow-[0_18px_30px_-12px_rgba(0,0,0,0.55)] sm:h-64 sm:w-40 sm:p-4"
+              className="flex h-44 w-24 flex-shrink-0 flex-col justify-between rounded-sm p-3 shadow-xl sm:h-56 sm:w-32 lg:h-64 lg:w-36 sm:p-4"
             >
-              <p className="font-serif text-sm leading-tight text-[#F3EAD8] sm:text-base">
+              <p className="font-serif text-xs font-medium leading-tight text-[#F3EAD8] sm:text-sm lg:text-base">
                 {book.title}
               </p>
-              <p className="text-[10px] uppercase text-[#F3EAD8]/60 sm:text-xs">
+              <p className="text-[9px] uppercase tracking-wider text-[#F3EAD8]/60 sm:text-[10px] lg:text-xs">
                 {book.author}
               </p>
             </motion.div>
