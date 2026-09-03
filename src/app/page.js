@@ -18,6 +18,3 @@ export default function Home() {
     </div>
   );
 }
-
-
-ndsfjhn
