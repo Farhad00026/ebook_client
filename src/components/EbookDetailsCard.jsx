@@ -157,7 +157,7 @@ export function EbookDetailsCard({ product }) {
           {/* Purchase Button */}
           <div className="mt-6">
 
-            <form action={`/api/payment`}>
+            <form action={`/api/payment`} method="POST">
               <input type="hidden" defaultValue={price} name="price"/>
               <input type="hidden" defaultValue={title} name="title"/>
               <input type="hidden" name="productId" defaultValue={_id}/>

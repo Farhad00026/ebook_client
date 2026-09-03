@@ -168,14 +168,14 @@ export default async function Success({ searchParams }) {
               <div className="mt-7 flex flex-col gap-3 sm:flex-row sm:justify-center">
 
                 <Link
-                  href="/dashboard"
+                  href="/"
                   className="rounded-xl bg-gray-900 px-7 py-3 text-sm font-semibold text-white shadow-lg transition hover:bg-gray-800"
                 >
                   Go to Dashboard
                 </Link>
 
                 <Link
-                  href="/products"
+                  href="/"
                   className="rounded-xl border border-gray-300 bg-white px-7 py-3 text-sm font-semibold text-gray-700 transition hover:bg-gray-50"
                 >
                   Continue Shopping
