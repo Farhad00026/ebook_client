@@ -1,3 +1,4 @@
+
 import { EbookDetailsCard } from "@/components/EbookDetailsCard";
 const SingleCardDetailPage = async ({ params }) => {
   const { id } = await params;

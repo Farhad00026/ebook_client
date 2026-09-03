@@ -2,29 +2,30 @@
 import { Button, Card } from "@heroui/react";
 import Image from "next/image";
 import {
-BookOpen,
-CheckCircle2,
-UserRound,
-Tag,
-ShoppingCart,
-ArrowLeft,
+  BookOpen,
+  CheckCircle2,
+  UserRound,
+  Tag,
+  ShoppingCart,
+  ArrowLeft,
 } from "lucide-react";
 import Link from "next/link";
 
 export function EbookDetailsCard({ product }) {
-const {
-title,
-writerName,
-description,
-price,
-genre,
-status,
-coverImage,
-} = product;
+  const {
+    _id,
+    title,
+    writerName,
+    description,
+    price,
+    genre,
+    status,
+    coverImage,
+  } = product;
 
-const isAvailable = status === "Available";
+  const isAvailable = status === "Available";
 
-return ( <main className="min-h-screen bg-gradient-to-br from-violet-50 via-white to-indigo-50 px-4 py-8 sm:px-6 lg:px-8 dark:from-gray-950 dark:via-gray-900 dark:to-violet-950/30"> <div className="mx-auto max-w-6xl">
+  return (<main className="min-h-screen bg-gradient-to-br from-violet-50 via-white to-indigo-50 px-4 py-8 sm:px-6 lg:px-8 dark:from-gray-950 dark:via-gray-900 dark:to-violet-950/30"> <div className="mx-auto max-w-6xl">
 
     {/* Back Button */}
     <Link
@@ -74,11 +75,10 @@ return ( <main className="min-h-screen bg-gradient-to-br from-violet-50 via-whit
           {/* Available / Sold */}
           <div className="mb-5">
             <span
-              className={`inline-flex items-center gap-2 rounded-full px-4 py-2 text-sm font-semibold ${
-                isAvailable
+              className={`inline-flex items-center gap-2 rounded-full px-4 py-2 text-sm font-semibold ${isAvailable
                   ? "bg-emerald-100 text-emerald-700 dark:bg-emerald-500/10 dark:text-emerald-400"
                   : "bg-red-100 text-red-700 dark:bg-red-500/10 dark:text-red-400"
-              }`}
+                }`}
             >
               <CheckCircle2 className="h-4 w-4" />
               {status}
@@ -133,11 +133,10 @@ return ( <main className="min-h-screen bg-gradient-to-br from-violet-50 via-whit
                 Status
               </p>
               <p
-                className={`mt-1 font-semibold ${
-                  isAvailable
+                className={`mt-1 font-semibold ${isAvailable
                     ? "text-emerald-600 dark:text-emerald-400"
                     : "text-red-600 dark:text-red-400"
-                }`}
+                  }`}
               >
                 {status}
               </p>
@@ -157,18 +156,24 @@ return ( <main className="min-h-screen bg-gradient-to-br from-violet-50 via-whit
 
           {/* Purchase Button */}
           <div className="mt-6">
-            <Button
-              isDisabled={!isAvailable}
-              className={`h-14 w-full rounded-xl text-base font-bold shadow-lg transition-all ${
-                isAvailable
-                  ? "bg-gray-950 text-white hover:bg-violet-700 hover:shadow-violet-500/25 dark:bg-white dark:text-gray-900 dark:hover:bg-violet-100"
-                  : "cursor-not-allowed bg-gray-300 text-gray-500 dark:bg-gray-700 dark:text-gray-400"
-              }`}
-            >
-              <ShoppingCart className="h-5 w-5" />
 
-              {isAvailable ? "Purchase Ebook" : "Currently Sold Out"}
-            </Button>
+            <form method="GET" action={`/api/payment`}>
+              <input type="hidden" defaultValue={price} name="price"/>
+              <input type="hidden" defaultValue={title} name="title"/>
+              <input type="hidden" name="productId" defaultValue={_id}/>
+              <Button
+                type="submit"
+                isDisabled={!isAvailable}
+                className={`h-14 w-full rounded-xl text-base font-bold shadow-lg transition-all ${isAvailable
+                    ? "bg-gray-950 text-white hover:bg-violet-700 hover:shadow-violet-500/25 dark:bg-white dark:text-gray-900 dark:hover:bg-violet-100"
+                    : "cursor-not-allowed bg-gray-300 text-gray-500 dark:bg-gray-700 dark:text-gray-400"
+                  }`}
+              >
+                <ShoppingCart className="h-5 w-5" />
+
+                {isAvailable ? "Purchase Ebook" : "Currently Sold Out"}
+              </Button>
+            </form>
           </div>
 
           {/* Small note */}
@@ -179,7 +184,7 @@ return ( <main className="min-h-screen bg-gradient-to-br from-violet-50 via-whit
       </div>
     </Card>
   </div>
-</main>
+  </main>
 
-);
+  );
 }
