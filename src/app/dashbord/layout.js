@@ -17,23 +17,19 @@ import { authClient } from "@/lib/auth-client";
 const navit = {
   user: [
     {
-      title: "Purchase History",
-      href: "/dashbord/seller/overview",
+      title: "Manage Ebooks",
+      href: "/dashbord/writer/manageebook",
       icon: LayoutDashboard,
     },
+    { title: "Add Ebook", href: "/dashbord/writer/addproducts", icon: Package },
     {
-      title: "Purchased Ebooks",
-      href: "/dashbord/seller/products",
-      icon: Package,
-    },
-    {
-      title: "Profile Management",
-      href: "/dashbord/seller/orders",
+      title: "Bookmark Page",
+      href: "/dashbord/writer/bookmarkpage",
       icon: Users,
     },
     {
-      title: "Bookmark Page",
-      href: "/dashbord/seller/customers",
+      title: "Sales History",
+      href: "/dashbord/writer/saleshistory",
       icon: ShoppingCart,
     },
   ],
@@ -44,7 +40,11 @@ const navit = {
       icon: LayoutDashboard,
     },
     { title: "Add Ebook", href: "/dashbord/writer/addproducts", icon: Package },
-    { title: "Bookmark Page", href: "/dashbord/writer/bookmarkpage", icon: Users },
+    {
+      title: "Bookmark Page",
+      href: "/dashbord/writer/bookmarkpage",
+      icon: Users,
+    },
     {
       title: "Sales History",
       href: "/dashbord/writer/saleshistory",
