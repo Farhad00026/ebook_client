@@ -13,7 +13,7 @@ import { MdDashboard } from "react-icons/md";
 const NAV_LINKS = [
   { label: "Home", href: "/" },
   { label: "Browse Ebooks", href: "/ebooks" },
-  { label: "Dashboard", href: "/dashboard" },
+  { label: "Dashboard", href: "/dashbord" },
 ];
 
 const Navbar = () => {
