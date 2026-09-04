@@ -1,7 +1,9 @@
-import { AdminProducts } from "@/components/Dashbord/admin/AdminProducts";
+import { Tableadmin } from "@/components/Dashbord/admin/Tableadmin";
 
 const manageebookpage = async () => {
+
   const SERVER_URL = process.env.NEXT_PUBLIC_SERVER_URL;
+
 
   const res = await fetch(`${SERVER_URL}/admin/ebook`, {
     method: "GET",
@@ -16,7 +18,7 @@ const manageebookpage = async () => {
   return (
     <div>
       <h1 className="font-bold text-3xl text-center">Managee Ebook</h1>
-      <AdminProducts products={products}/>
+      <Tableadmin products={products}/>
     </div>
   );
 };
