@@ -22,7 +22,9 @@ const Navbar = () => {
 
   const { data: session } = authClient.useSession();
   const user = session?.user;
-
+ if (pathname.includes("dashbord")) {
+    return null;
+  }
   const handleSignOut = async () => {
     await authClient.signOut();
     setIsMenuOpen(false);

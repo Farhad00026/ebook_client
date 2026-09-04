@@ -16,19 +16,19 @@ export function AddProductModal() {
     const data = Object.fromEntries(formdata.entries());
     // console.log(data);
     const image = await imageUploader(data.image)
-    const result = await addProduct({ ...data, image: image.url, userId: user?.id });
+    const result = await addProduct({ ...data, image: image.url,status:"Available",userId: user?.id });
     console.log(result);
   };
 
   return (
     <Modal>
-      <Button variant="secondary">Add Product</Button>
+      <Button variant="secondary">Add Ebbok</Button>
       <Modal.Backdrop>
         <Modal.Container placement="auto">
           <Modal.Dialog className="sm:max-w-md">
             <Modal.CloseTrigger />
             <Modal.Header>
-              <Modal.Heading>Add Product</Modal.Heading>
+              <Modal.Heading>Add Ebbok</Modal.Heading>
             </Modal.Header>
             <Modal.Body className="p-6">
               <Surface variant="default">
@@ -41,6 +41,15 @@ export function AddProductModal() {
                   >
                     <Label>Title</Label>
                     <Input placeholder="Product Title" />
+                  </TextField>
+                   <TextField
+                    className="w-full"
+                    name="writerName"
+                    type="text"
+                    variant="secondary"
+                  >
+                    <Label>writerName</Label>
+                    <Input placeholder="writer Name " />
                   </TextField>
 
                   <TextField
@@ -65,21 +74,21 @@ export function AddProductModal() {
 
                   <TextField
                     className="w-full"
-                    name="quantity"
-                    type="number"
+                    name="genre"
+                    type="text"
                     variant="secondary"
                   >
-                    <Label>Quantity</Label>
-                    <Input placeholder="Quantity" />
+                    <Label>genre</Label>
+                    <Input placeholder="Genre" />
                   </TextField>
 
                   <TextField
                     className="w-full"
-                    name="image"
+                    name="coverImage"
                     type="file"
                     variant="secondary"
                   >
-                    <Label>Product Image</Label>
+                    <Label>coverImage</Label>
                     <input name="image" type="file" placeholder="Image" />
                   </TextField>
 

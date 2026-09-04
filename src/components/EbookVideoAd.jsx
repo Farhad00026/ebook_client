@@ -3,7 +3,7 @@ import Link from "next/link";
 import { ArrowRight, BookOpen, Play } from "lucide-react";
 export default function EbookVideoAd() {
 return ( <section className="mt-8 overflow-hidden rounded-3xl bg-gray-950 shadow-xl"> <div className="grid items-center md:grid-cols-2">
-{/* Video */} <div className="relative h-[280px] w-full overflow-hidden sm:h-[350px] md:h-[420px]"> <video
+{/* Video */} <div className=" relative h-[280px] w-full overflow-hidden sm:h-[350px] md:h-[420px]"> <video
          className="h-full w-full object-cover"
          autoPlay
          muted

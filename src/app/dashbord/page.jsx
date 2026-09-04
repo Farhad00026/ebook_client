@@ -2,7 +2,7 @@
 const dashbordpage = () => {
     return (
         <div>
-            <h1> Dashbord page </h1>
+            <h1 className="font-bold text-3xl text-center"> Welcome to Dashbord </h1>
         </div>
     );
 };

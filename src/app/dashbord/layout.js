@@ -1,10 +1,8 @@
 "use client";
-
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import {
-  Layoutdashbord,
   Package,
   ShoppingCart,
   Users,
@@ -23,44 +21,89 @@ const navit = {
       href: "/dashbord/seller/overview",
       icon: LayoutDashboard,
     },
-    { title: "Purchased Ebooks", href: "/dashbord/seller/products", icon: Package },
-    { title: "Profile Management", href: "/dashbord/seller/orders", icon: Users },
-    { title: "Bookmark Page", href: "/dashbord/seller/customers", icon: ShoppingCart },
+    {
+      title: "Purchased Ebooks",
+      href: "/dashbord/seller/products",
+      icon: Package,
+    },
+    {
+      title: "Profile Management",
+      href: "/dashbord/seller/orders",
+      icon: Users,
+    },
+    {
+      title: "Bookmark Page",
+      href: "/dashbord/seller/customers",
+      icon: ShoppingCart,
+    },
   ],
   writer: [
-    { title: "Manage Ebooks", href: "/dashbord/buyer", icon: LayoutDashboard },
-    { title: "Add Ebook", href: "/dashbord/buyer/products", icon: Package },
-    { title: "Edit Ebook", href: "/dashbord/buyer/orders", icon:Users },
-    { title: "Sales History", href: "/dashbord/buyer/customers", icon:ShoppingCart},
+    {
+      title: "Manage Ebooks",
+      href: "/dashbord/writer/manageebook",
+      icon: LayoutDashboard,
+    },
+    { title: "Add Ebook", href: "/dashbord/writer/addproducts", icon: Package },
+    { title: "Bookmark Page", href: "/dashbord/writer/bookmarkpage", icon: Users },
+    {
+      title: "Sales History",
+      href: "/dashbord/writer/saleshistory",
+      icon: ShoppingCart,
+    },
   ],
   admin: [
-    { title: "Manage Users", href: "/dashbord/admin", icon: LayoutDashboard },
-    { title: "Manage All Ebooks", href: "/dashbord/admin/products", icon: Package },
-    { title: "View All Transactions", href: "/dashbord/admin/orders", icon: ShoppingCart },
-    { title: "Dashboard", href: "/dashbord/admin/customers", icon: Users },
+    { title: "Dashboard Home", href: "/dashbord/admin", icon: LayoutDashboard },
+
+    { title: "Manage Users", href: "/dashbord/admin/users", icon: Users },
+    {
+      title: "Manage All Ebooks",
+      href: "/dashbord/admin/manageebook",
+      icon: Package,
+    },
+    {
+      title: "View All Transactions",
+      href: "/dashbord/admin/transactions",
+      icon: ShoppingCart,
+    },
   ],
 };
+
+function SidebarSkeleton() {
+  return (
+    <div className="flex flex-col gap-2 p-3">
+      {[...Array(4)].map((_, i) => (
+        <div key={i} className="h-9 animate-pulse rounded-lg bg-gray-100" />
+      ))}
+    </div>
+  );
+}
 
 function SidebarMenu({ onNavigate }) {
   const pathname = usePathname();
   const { data: session, isPending } = authClient.useSession();
-  const role = session?.user?.role;
 
-  const items = navit[role] ?? [];
+  // authClient.useSession() reads client-only state (cookies/local cache)
+  // that isn't available during SSR. If we used its value immediately, the
+  // server render (no session yet) and the client's first render (session
+  // already resolved) could produce different links -> hydration mismatch.
+  // Gating on `mounted` guarantees the first client render matches the
+  // server exactly; the real session-based menu appears right after.
+  const [mounted, setMounted] = useState(false);
+  useEffect(() => {
+    setMounted(true);
+  }, []);
 
-  if (isPending) {
-    return (
-      <div className="flex flex-col gap-2 p-3">
-        {[...Array(4)].map((_, i) => (
-          <div key={i} className="h-9 animate-pulse rounded-lg bg-gray-100" />
-        ))}
-      </div>
-    );
+  if (!mounted || isPending) {
+    return <SidebarSkeleton />;
   }
+
+  const role = session?.user?.role;
 
   if (!role) {
     return <div className="p-3 text-sm text-gray-500">No menu available.</div>;
   }
+
+  const items = navit[role] ?? [];
 
   return (
     <nav className="flex flex-col gap-1 p-3">
@@ -155,4 +198,3 @@ export default function RootLayout({ children }) {
     </div>
   );
 }
-

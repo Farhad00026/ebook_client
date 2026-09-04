@@ -3,6 +3,7 @@
 import { useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
+import { usePathname } from "next/navigation";
 import { Mail, Phone, MapPin, Send, CheckCircle2 } from "lucide-react";
 import { FaFacebook } from "react-icons/fa";
 import { BsInstagram, BsTwitter } from "react-icons/bs";
@@ -11,7 +12,10 @@ import { LiaLinkedin } from "react-icons/lia";
 export default function Footer() {
   const [email, setEmail] = useState("");
   const [subscribed, setSubscribed] = useState(false);
-
+  const pathname = usePathname();
+ if (pathname.includes("dashbord")) {
+    return null;
+  }
   const handleNewsletterSubmit = (e) => {
     e.preventDefault();
     if (!email) return;
